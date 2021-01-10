@@ -119,9 +119,9 @@ class fireworks {
         setInterval(()=>{
             let newBullet = new bullet(this);
             this.bullets.push(newBullet);
-        },1500);
+        },1000);
 
-        
+
         this.loop();
     }
     loop() {
