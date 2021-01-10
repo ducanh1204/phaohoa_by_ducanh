@@ -1,0 +1,9 @@
+.content{
+    font-size: 30px;
+    color:white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.container{
+    position: fixed;
+    margin: auto;
+}
