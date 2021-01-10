@@ -121,6 +121,7 @@ class fireworks {
             this.bullets.push(newBullet);
         },1500);
 
+        
         this.loop();
     }
     loop() {
