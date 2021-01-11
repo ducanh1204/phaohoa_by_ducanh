@@ -1,14 +1,23 @@
 
 const WIDTH = screen.width;
+const WIDTH2 = 1200;
 const HEIGT = screen.height;
 let text = document.getElementsByClassName('class');
+// kích thước 1 hạt
 const PARTICLE_SIZE = 7;
+// thay đổi size 1 hạt
 const PARTICLE_CHANGE_SIZE_SPEED = 0.1;
+// thay đổi tốc 1 hạt bắn ra
 const PARTICLE_CHANGE_SPEED = 0.5;
+// gia tốc bắn, tốc độ rơi
 const ACCELERATION = 0.12;
+// giảm dần size của các hạt sau khi bắn ra
 const DOT_CHANGE_SIZE_SPEED = 0.2;
+// độ mờ đi nhanh của các hạt sau khi bắn ra
 const DOT_CHANGE_ALPHA_SPEED = 0.07;
+// tốc độ bắn ít nhất (trong bài từ 10 đến 14)
 const PARTICLE_MIN_SPEED = 10;
+// số lượng hạt ban đầu bắn ra
 const NUMBER_PARTICLE_PER_BULLET = 25;
 const TIME = 1500;
 
@@ -30,11 +39,13 @@ class particle {
 
     }
     update() {
+        // giảm vận tốc hạt bắn
         this.speed -= PARTICLE_CHANGE_SPEED;
         if (this.speed < 0) {
             this.speed = 0;
         }
 
+        // giới hạn khoảng bắn, sau đó cho rơi
         this.fallSpeed += ACCELERATION;
 
         this.speedX = this.speed * Math.cos(this.deg);
@@ -42,6 +53,7 @@ class particle {
 
         this.x += this.speedX;
         this.y += this.speedY;
+        // thay đổi kích thước 1 hạt
         if (this.size > PARTICLE_CHANGE_SIZE_SPEED) {
             this.size -= PARTICLE_CHANGE_SIZE_SPEED;
         }
@@ -113,24 +125,33 @@ class fireworks {
         this.canvas = document.createElement('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = WIDTH;
-        this.canvas.height = HEIGT*0.9;
+        this.canvas.height = HEIGT * 0.9;
         document.body.appendChild(this.canvas);
         this.time = TIME;
-        this.check();
+        this.checkTime();
 
         this.bullets = [];
         setInterval(() => {
             let newBullet = new bullet(this);
             this.bullets.push(newBullet);
         }, this.time);
+        setInterval(() => {
+            this.checkManHinh();
+        }, 250);
 
         this.loop();
     }
-    check() {
+    checkTime() {
         if (this.canvas.width >= 1280) {
             this.time = 250;
         } else {
             this.time = 1500;
+        }
+    }
+    checkManHinh() {
+        this.width = screen.width;
+        if (this.width != this.canvas.width) {
+            window.location.href = window.location.pathname + window.location.search + window.location.hash;
         }
     }
     loop() {
