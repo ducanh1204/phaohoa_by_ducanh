@@ -10,6 +10,7 @@ const DOT_CHANGE_SIZE_SPEED = 0.2;
 const DOT_CHANGE_ALPHA_SPEED = 0.07;
 const PARTICLE_MIN_SPEED = 10;
 const NUMBER_PARTICLE_PER_BULLET = 25;
+const TIME = 1500;
 
 class particle {
     constructor(bullet, deg) {
@@ -56,15 +57,15 @@ class particle {
             dot.size -= DOT_CHANGE_SIZE_SPEED;
             dot.alpha -= DOT_CHANGE_ALPHA_SPEED;
         })
-        this.dots = this.dots.filter(dot=>{
-            return dot.size>0;
+        this.dots = this.dots.filter(dot => {
+            return dot.size > 0;
         });
-        if(this.dots.length == 0){
+        if (this.dots.length == 0) {
             this.remove();
         }
     }
-    remove(){
-        this.bullet.particles.splice(this.bullet.particles.indexOf(this),1);
+    remove() {
+        this.bullet.particles.splice(this.bullet.particles.indexOf(this), 1);
     }
     draw() {
         this.dots.forEach(dot => {
@@ -81,7 +82,7 @@ class bullet {
         this.fireworks = fireworks;
         this.ctx = fireworks.ctx;
         this.x = Math.random() * WIDTH;
-        this.y = Math.random() * HEIGT/2;
+        this.y = Math.random() * HEIGT / 2;
         this.color = Math.floor(Math.random() * 255) + ','
             + Math.floor(Math.random() * 255) + ','
             + Math.floor(Math.random() * 255);
@@ -93,11 +94,11 @@ class bullet {
             this.particles.push(newParticle);
         }
     }
-    remove(){
-        this.fireworks.bullets.splice(this.fireworks.bullets.indexOf(this),1);
+    remove() {
+        this.fireworks.bullets.splice(this.fireworks.bullets.indexOf(this), 1);
     }
     update() {
-        if(this.particles.length==0){
+        if (this.particles.length == 0) {
             this.remove();
         }
         this.particles.forEach(particle => particle.update());
@@ -113,15 +114,24 @@ class fireworks {
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = WIDTH;
         this.canvas.height = HEIGT;
+        this.time = TIME;
         document.body.appendChild(this.canvas);
+        this.check();
 
         this.bullets = [];
-        setInterval(()=>{
+        setInterval(() => {
             let newBullet = new bullet(this);
             this.bullets.push(newBullet);
-        },1500);
+        }, this.time);
 
         this.loop();
+    }
+    check() {
+        if (this.canvas.width >= 1280) {
+            this.time = 250;
+        } else {
+            this.time = 1500;
+        }
     }
     loop() {
         this.bullets.forEach(bullet => bullet.update());
