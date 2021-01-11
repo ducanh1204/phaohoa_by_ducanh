@@ -113,7 +113,7 @@ class fireworks {
         this.canvas = document.createElement('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = WIDTH;
-        this.canvas.height = HEIGT;
+        this.canvas.height = HEIGT*0.9;
         this.time = TIME;
         document.body.appendChild(this.canvas);
         this.check();
