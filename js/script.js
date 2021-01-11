@@ -114,8 +114,8 @@ class fireworks {
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = WIDTH;
         this.canvas.height = HEIGT*0.9;
-        this.time = TIME;
         document.body.appendChild(this.canvas);
+        this.time = TIME;
         this.check();
 
         this.bullets = [];
