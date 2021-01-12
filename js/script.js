@@ -145,7 +145,7 @@ class fireworks {
         if (this.canvas.width >= 1280) {
             this.time = 250;
         } else {
-            this.time = 500;
+            this.time = 1500;
         }
     }
     checkManHinh() {
