@@ -1,7 +1,7 @@
 
 const WIDTH = screen.width;
 const WIDTH2 = 1200;
-const HEIGT = screen.height;
+const HEIGT = screen.height * 0.8;
 let text = document.getElementsByClassName('class');
 // kích thước 1 hạt
 const PARTICLE_SIZE = 7;
@@ -125,12 +125,15 @@ class fireworks {
         this.canvas = document.createElement('canvas');
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = WIDTH;
-        this.canvas.height = HEIGT * 0.9;
+        this.canvas.height = HEIGT;
         document.body.appendChild(this.canvas);
+        this.chu = this.canvas.width;
         this.time = TIME;
         this.checkTime();
-
         this.bullets = [];
+        this.txt = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+        this.widthText = -500;
+
         setInterval(() => {
             let newBullet = new bullet(this);
             this.bullets.push(newBullet);
@@ -138,8 +141,8 @@ class fireworks {
         setInterval(() => {
             this.checkManHinh();
         }, 250);
-
         this.loop();
+
     }
     checkTime() {
         if (this.canvas.width >= 1280) {
@@ -157,13 +160,21 @@ class fireworks {
     loop() {
         this.bullets.forEach(bullet => bullet.update());
         this.draw();
+        this.chu = this.chu - 2;
+        if (this.chu  < - this.widthText ) {
+            this.chu = this.canvas.width;
+        }
         setTimeout(() => this.loop(), 20);
     }
 
 
     clearScreen() {
         this.ctx.fillStyle = '#000000';
-        this.ctx.fillRect(0, 0, WIDTH, HEIGT)
+        this.ctx.fillRect(0, 0, WIDTH, HEIGT);
+        this.ctx.font = "30px Comic Sans MS";
+        this.ctx.fillStyle = "red";
+        this.ctx.fillText(this.txt, this.chu, this.canvas.height * 0.99);
+        this.widthText = this.ctx.measureText(this.txt).width;
     }
 
     draw() {
