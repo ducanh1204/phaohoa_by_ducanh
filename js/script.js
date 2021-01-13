@@ -1,7 +1,7 @@
 
 const WIDTH = screen.width;
 const WIDTH2 = 1200;
-const HEIGT = screen.height * 0.8;
+const HEIGT = screen.height * 0.9;
 let text = document.getElementsByClassName('class');
 // kích thước 1 hạt
 const PARTICLE_SIZE = 7;
